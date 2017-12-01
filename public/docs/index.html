@@ -48,14 +48,9 @@
 <p>Welcome to the generated API reference.
 <a href="http://127.0.0.1:9010/docs/collection.json">Get Postman Collection</a></p>
 <!-- END_INFO -->
-<h1>客户端用户接口</h1>
-<p>所有的用户接口基本Res
-User: mark
-Date: 17/12/1
-Time: 下午12:13</p>
+<h1>general</h1>
 <!-- START_b2892eb191cd19c0a6f1aae56ba43db4 -->
-<h2>获取用户列表</h2>
-<p>分页</p>
+<h2>Display a listing of the resource.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -77,34 +72,53 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example response:</p>
 </blockquote>
-<pre><code class="language-json">null</code></pre>
+<pre><code class="language-json">[
+    "index"
+]</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/v1/user</code></p>
 <p><code>HEAD api/v1/user</code></p>
 <!-- END_b2892eb191cd19c0a6f1aae56ba43db4 -->
-<!-- START_02d045549b2678d1fc27a32573e1b9df -->
-<h2>用户注册</h2>
+<!-- START_b77cc60ec781668eff0888aa705fd258 -->
+<h2>Show the form for creating a new resource.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://127.0.0.1:9010/api/v1/user/store" \
--H "Accept: application/json" \
-    -d "title"="et" \
-    -d "body"="et" \
-    -d "type"="bar" \
-    -d "thumbnail"="et" \
-</code></pre>
+<pre><code class="language-bash">curl -X GET "http://127.0.0.1:9010/api/v1/user/create" \
+-H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://127.0.0.1:9010/api/v1/user/store",
+    "url": "http://127.0.0.1:9010/api/v1/user/create",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/user/create</code></p>
+<p><code>HEAD api/v1/user/create</code></p>
+<!-- END_b77cc60ec781668eff0888aa705fd258 -->
+<!-- START_96b8840d06e94c53a87e83e9edfb44eb -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://127.0.0.1:9010/api/v1/user" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://127.0.0.1:9010/api/v1/user",
     "method": "POST",
-    "data": {
-        "title": "et",
-        "body": "et",
-        "type": "bar",
-        "thumbnail": "et"
-},
     "headers": {
         "accept": "application/json"
     }
@@ -114,44 +128,111 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/v1/user/store</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>title</td>
-<td>string</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>body</td>
-<td>string</td>
-<td>required</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>optional</td>
-<td><code>foo</code> or <code>bar</code></td>
-</tr>
-<tr>
-<td>thumbnail</td>
-<td>image</td>
-<td>optional</td>
-<td>Required if <code>type</code> is <code>foo</code> Must be an image (jpeg, png, bmp, gif, or svg)</td>
-</tr>
-</tbody>
-</table>
-<!-- END_02d045549b2678d1fc27a32573e1b9df -->
+<p><code>POST api/v1/user</code></p>
+<!-- END_96b8840d06e94c53a87e83e9edfb44eb -->
+<!-- START_eda2b3d78b052ccb36bffab3b344d72a -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://127.0.0.1:9010/api/v1/user/{user}" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://127.0.0.1:9010/api/v1/user/{user}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/user/{user}</code></p>
+<p><code>HEAD api/v1/user/{user}</code></p>
+<!-- END_eda2b3d78b052ccb36bffab3b344d72a -->
+<!-- START_f5dcd1a863721e6fed25439283ccab97 -->
+<h2>Show the form for editing the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://127.0.0.1:9010/api/v1/user/{user}/edit" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://127.0.0.1:9010/api/v1/user/{user}/edit",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/user/{user}/edit</code></p>
+<p><code>HEAD api/v1/user/{user}/edit</code></p>
+<!-- END_f5dcd1a863721e6fed25439283ccab97 -->
+<!-- START_1006d782d67bb58039bde349972eb2f0 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "http://127.0.0.1:9010/api/v1/user/{user}" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://127.0.0.1:9010/api/v1/user/{user}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/v1/user/{user}</code></p>
+<p><code>PATCH api/v1/user/{user}</code></p>
+<!-- END_1006d782d67bb58039bde349972eb2f0 -->
+<!-- START_a5d7655acadc1b6c97d48e68f1e87be9 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "http://127.0.0.1:9010/api/v1/user/{user}" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://127.0.0.1:9010/api/v1/user/{user}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/v1/user/{user}</code></p>
+<!-- END_a5d7655acadc1b6c97d48e68f1e87be9 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

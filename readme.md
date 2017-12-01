@@ -59,6 +59,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## API接口文档自动生成
 - **[https://github.com/mpociot/documentarian]**
+- php artisan api:gen --routePrefix="api/*"
 
 ## laravel restful 自动生成路由
 - php artisan make:controller PhotoController --resource
