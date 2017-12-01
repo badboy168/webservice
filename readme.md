@@ -51,3 +51,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+# 项目中使用到的工具
+
+## 模块化开发
+- **[https://packalyst.com/packages/package/caffeinated/modules]**
+
+## API接口文档自动生成
+- **[https://github.com/mpociot/documentarian]**
+
+## laravel restful 自动生成路由
+- php artisan make:controller PhotoController --resource
+- php artisan make:controller PhotoController --resource --model=Photo
