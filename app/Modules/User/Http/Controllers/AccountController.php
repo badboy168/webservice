@@ -1,10 +1,13 @@
 <?php
+namespace App\Modules\User\Http\Controllers;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+/**
+ * 账户接口
+ */
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
+        return ['account'];
     }
 
     /**

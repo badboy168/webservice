@@ -13,7 +13,23 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->somethingElseIsInvalid()) {
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+            }
+        });
     }
 
     /**
@@ -24,10 +40,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'type' => 'in:foo,bar',
-            'thumbnail' => 'required_if:type,foo|image',
+            'body'=>'required'
         ];
     }
 }

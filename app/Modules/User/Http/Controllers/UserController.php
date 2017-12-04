@@ -1,14 +1,38 @@
 <?php
 namespace App\Modules\User\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+
+use App\Modules\Model\Validator\Impl\UserVaildatorImpl;
 use Illuminate\Http\Request;
 
 /**
  * 用户接口
+ * 请求方式	URI路径	            控制器方法	路由名称
+    GET	    /user	            index	    user.index
+    GET	    /user/create	    create	    user.create
+    POST	/user	            store	    user.store
+    GET	    /user/{post}	    show	    user.show
+    GET	    /user/{post}/edit	edit	    user.edit
+    PUT/PATCH	/user/{post}	update	    user.update
+    DELETE	/user/{post}	    destroy	    user.destroy
  */
-class UserController extends Controller
+class UserController extends AbBaseController
 {
+
+    protected $userVaild;
+
+    function __construct()
+    {
+//        $route = request()->route()->getAction();
+//
+//        list($controller, $action) = explode('@', $route['controller']);
+//
+//        echo $controller, $action;
+
+         $this->userVaild = new UserVaildatorImpl();
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +62,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $validator = Validator::make($request->all(), [
+//            'title' => 'required|max:255',
+//            'body' => 'required',
+//        ]);
+//
+//        if ($validator->fails()) {
+//            $errors = $validator->errors();
+//
+//            return $errors->all();
+//        }
+
+         UserVaildatorImpl::getInstance()->rule($request->all());
+
+        echo UserVaildatorImpl::getInstance()->getErrorMessage();
+
+//        $this->userVaild->make($request->all());
+//        echo $request->input('username');
     }
 
     /**

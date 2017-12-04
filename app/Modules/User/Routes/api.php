@@ -22,6 +22,9 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
     //用户API
     Route::resource('/user', 'UserController');
+    //账户
+    Route::resource('/account', 'AccountController');
+
 });
 
 //Route::resource('/user', 'UserController');
