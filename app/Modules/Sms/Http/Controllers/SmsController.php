@@ -52,9 +52,10 @@ class SmsController extends ApiBaseController
             $smsService = new SmsServiceImpl();
             if ($smsService->check($mobile, $smsCode)) {
 
+                $token = md5("{$mobile},{$smsCode}");
                 $request->session()->put('token', md5("{$mobile},{$smsCode}"));
 
-                return $this->jsonApiSuccess("验证成功");
+                return $this->jsonApiSuccess(['token'=>$token]);
             }
         } catch (ApiExecption $e) {
             return $this->jsonApiError($e);
