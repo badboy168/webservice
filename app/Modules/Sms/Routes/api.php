@@ -28,6 +28,6 @@ Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
 
 //    Route::get('/sms/index', 'SmsController@index');
     //短信
-    Route::resource('/sms', 'SmsController');
+//    Route::resource('/sms', 'SmsController');
 
 });

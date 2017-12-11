@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Routing\RouteCollection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,12 +50,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        // 如果config配置debug为true ==>debug模式的话让laravel自行处理
-//        if(config('app.debug')){
-//            return parent::render($request, $exception);
-//        }
-        return $this->handle($request, $exception);
 
+
+        // 如果config配置debug为true ==>debug模式的话让laravel自行处理
+        if(config('app.debug')){
+            return parent::render($request, $exception);
+        }
+        return $this->handle($request, $exception);
 
 //        return parent::render($request, $exception);
     }
@@ -73,6 +76,18 @@ class Handler extends ExceptionHandler
 
             return response()->json($result);
         }
+
+        if($exception instanceof NotFoundHttpException)
+        {
+            $result = [
+                "msg"    => "你请求的访法未找到",
+                "data"   => $exception->getMessage(),
+                "status" => 500
+            ];
+            return response()->json($result);
+        }
+
+
         return parent::render($request, $exception);
     }
 
