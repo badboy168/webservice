@@ -57,10 +57,8 @@ class Handler extends ExceptionHandler
         if(config('app.debug')){
             return parent::render($request, $exception);
         }
-//
-        return $this->handle($request, $exception);
 
-//        return parent::render($request, $exception);
+        return $this->handle($request, $exception);
     }
 
 
@@ -76,7 +74,7 @@ class Handler extends ExceptionHandler
             $status = $exception->getCode();
         }else if($exception instanceof NotFoundHttpException)
         {
-            $message = "您请求的方法未代码";
+            $message = "您请求的地址未找到";
             $status = 400;
         }else if($exception instanceof MethodNotAllowedHttpException)
         {
