@@ -73,7 +73,8 @@ class SmsServiceImpl extends AbBaseServiceImpl
         }
 
         $sms->store(['mobile' => $mobile, 'content' => $content, 'send_time' => time(), 'code' => $code, 'message' => $message, 'status' => $status]);
-        return $sms->id;
+
+        return md5("{$sms->id}.{$code}.{$mobile}");
     }
 
 

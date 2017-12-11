@@ -37,7 +37,7 @@ class SmsController extends Controller
      * @param $smsCode 短信验证码
      * @return array
      */
-    function check($mobile, $smsCode)
+    function check(Request $request,$mobile, $smsCode)
     {
 //        if(! $this->checkCode($imgCode))
 //        {
@@ -48,6 +48,8 @@ class SmsController extends Controller
             $smsService = new SmsServiceImpl();
             if($smsService->check($mobile, $smsCode))
             {
+                $request->session()->put('token', md5("{$mobile},{$smsCode}"));
+                
                 return $this->jsonApiSuccess("验证成功");
             }
         }catch (ApiExecption $e)
@@ -82,7 +84,7 @@ class SmsController extends Controller
      * @param Request $request
      * @return array
      */
-    function send(Request $request)
+    function login(Request $request)
     {
         //是否开启验证码
         if(getenv('IS_SMS_CODE'))
@@ -101,7 +103,7 @@ class SmsController extends Controller
                 //发送短信
                 $smsService->send($request->get('mobile'));
                 //返回结果
-                return $this->jsonApiSuccess("发送成功");
+                return $this->jsonApiSuccess("发送成功", 200);
             }catch (ApiExecption $e)
             {
                 return $this->jsonApiError($e);

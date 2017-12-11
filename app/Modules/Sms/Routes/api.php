@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
 
     //发送短信
-    Route::post('/sms/send', 'SmsController@send');
+    Route::post('/sms/login', 'SmsController@login');
     //获取验证码
     Route::get('/sms/getCode', 'SmsController@getCode');
     //验证用户输入的验证码是否正确认
