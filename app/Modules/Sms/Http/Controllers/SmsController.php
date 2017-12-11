@@ -34,16 +34,15 @@ class SmsController extends Controller
     /**
      * 检测验证码是否正确
      * @param $mobile string 手机号码
-     * @param $imgCode 图片验证码
      * @param $smsCode 短信验证码
      * @return array
      */
-    function check($mobile, $imgCode, $smsCode)
+    function check($mobile, $smsCode)
     {
-        if(! $this->checkCode($imgCode))
-        {
-            return $this->jsonApiError('验证码错误');
-        }
+//        if(! $this->checkCode($imgCode))
+//        {
+//            return $this->jsonApiError('验证码错误');
+//        }
 
         try{
             $smsService = new SmsServiceImpl();
