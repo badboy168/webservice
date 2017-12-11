@@ -92,7 +92,7 @@ class SmsController extends ApiBaseController
             try {
                 $smsService = new SmsServiceImpl();
                 //发送短信
-                $smsService->send($request->get('mobile'));
+                $smsService->send($request->get('mobile'), $request->get('captcha'));
                 //返回结果 第一个参数如果是字符串的话会默认当做message,如果传的是数组或者对象
                 return $this->jsonApiSuccess("发送成功");
             } catch (ApiExecption $e) {
