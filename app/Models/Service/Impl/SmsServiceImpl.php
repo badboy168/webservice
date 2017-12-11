@@ -66,8 +66,12 @@ class SmsServiceImpl extends AbBaseServiceImpl
 
         //判断是否存在用户表中
         if (($data = $user->where(['phone' => $mobile])->first()) === NULL) {
+            //获取客户端的真实IP
+            $ip = Request::getClientIp();
+            //通过IP获取真实的地理位置
+            $location = implode(' ', Ip::find($ip));
             //注册一个新用户
-            $user->store(['phone' => $mobile, 'member' => $user->createMember(), 'os_type' => $this->getOsType(), 'app_version' => '1.0.0', 'phone_version' => '1.0.0', 'channel' => 'h5']);
+            $user->store(['phone' => $mobile, 'member' => $user->createMember(), 'os_type' => $this->getOsType(), 'app_version' => '1.0.0', 'phone_version' => '1.0.0', 'channel' => 'h5', 'location'=>$location]);
         }
 
         $sms = new SmsLogDaoImpl();
