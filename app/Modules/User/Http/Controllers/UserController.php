@@ -3,13 +3,10 @@ namespace App\Modules\User\Http\Controllers;
 
 
 use App\Exceptions\ApiExecption;
-use App\Exceptions\DBNotColumnException;
-use App\Models\Dao\Impl\UsersDaoImpl;
+use App\Http\Controllers\Api\ApiBaseController;
 use App\Models\Service\Impl\UserServiceImpl;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 
 /**
@@ -23,9 +20,14 @@ use Illuminate\Support\Facades\Log;
  * PUT/PATCH    /user/{post}    update        user.update
  * DELETE    /user/{post}        destroy        user.destroy
  */
-class UserController extends AbBaseController
+class UserController extends ApiBaseController
 {
 
+
+    function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Display a listing of the resource.

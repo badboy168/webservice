@@ -3,13 +3,13 @@
 namespace App\Modules\Sms\Http\Controllers;
 
 use App\Exceptions\ApiExecption;
-use App\Models\Dao\Impl\SmsLogDaoImpl;
+use App\Http\Controllers\Api\ApiBaseController;
 use App\Models\Service\Impl\SmsServiceImpl;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class SmsController extends Controller
+
+class SmsController extends ApiBaseController
 {
     /**
      * Display a listing of the resource.
@@ -24,10 +24,13 @@ class SmsController extends Controller
     }
 
 
+    /**
+     * 获取图片验证码
+     * @return mixed
+     */
     public function getCode()
     {
-        $img = captcha_img();
-        return $img;
+        return captcha_img();
     }
 
 
@@ -48,6 +51,7 @@ class SmsController extends Controller
         try {
             $smsService = new SmsServiceImpl();
             if ($smsService->check($mobile, $smsCode)) {
+
                 $request->session()->put('token', md5("{$mobile},{$smsCode}"));
 
                 return $this->jsonApiSuccess("验证成功");
@@ -85,25 +89,14 @@ class SmsController extends Controller
 
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
-
             try {
-
-                //是否开启验证码
-                if (getenv('IS_SMS_CODE')) {
-                    $validator = Validator::make(['captcha' => $request->get('captcha')], ['captcha' => 'required|captcha']);
-                    //验证失败则直接返回提示消息
-                    if($validator->fails())
-                    {
-                        return $this->jsonApiError("验证码不正确", 300);
-                    }
-                }
-
                 $smsService = new SmsServiceImpl();
                 //发送短信
                 $smsService->send($request->get('mobile'));
                 //返回结果 第一个参数如果是字符串的话会默认当做message,如果传的是数组或者对象
                 return $this->jsonApiSuccess("发送成功");
             } catch (ApiExecption $e) {
+
                 return $this->jsonApiError($e);
             }
         }

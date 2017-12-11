@@ -2,13 +2,12 @@
 
 namespace App\Modules\User\Http\Controllers;
 
+use App\Http\Controllers\Api\ApiBaseController;
 use EasyWeChat\Foundation\Application;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class WechatController extends Controller
+
+class WechatController extends ApiBaseController
 {
     //
     protected function options(){ //选项设置

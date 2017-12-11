@@ -105,7 +105,7 @@ abstract class AbBaseDaoImpl extends Model
      * @param $checked bool 是否进行检测
      * @throws DBNotColumnException
      */
-    function assign($input, $checked = true)
+    protected function assign($input, $checked = true)
     {
 
         //得到数据库中的所有字段
@@ -123,5 +123,18 @@ abstract class AbBaseDaoImpl extends Model
         }
 
     }
+
+
+    /**
+     * 保存数据
+     * @param $input
+     * @return bool
+     */
+//    protected function store($input):bool
+//    {
+//
+//        $this->assign($input);
+//        return $this->save();
+//    }
 
 }

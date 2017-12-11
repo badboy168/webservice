@@ -28,8 +28,31 @@ class SmsServiceImpl extends AbBaseServiceImpl
     }
 
 
-    function send($mobile)
+    /**
+     * 通过手机号码进行短信发送
+     * @param $mobile
+     * @param $captcha
+     * @return string
+     * @throws ApiExecption
+     */
+    function send($mobile, $captcha)
     {
+
+        //是否开启验证码
+        if (getenv('SMS_CHECK_CAPTCHA')) {
+            $validator = Validator::make(['captcha' => $captcha], ['captcha' => 'required|captcha']);
+            //验证失败则直接返回提示消息
+            if($validator->fails())
+            {
+                throw new ApiExecption("验证码不正确", 300);
+            }
+        }
+
+        //验证手机号码
+        if (!$this->isMobile($mobile)) {
+            throw new ApiExecption("手机号码不正确", 400);
+        }
+
 
         $user = new UsersDaoImpl();
 
@@ -41,21 +64,14 @@ class SmsServiceImpl extends AbBaseServiceImpl
         //通过字符串替换,把验证码替换到内容中
         $content = str_replace('{{code}}', $code, $content);
 
-        //验证手机号码
-        if (!$this->isMobile($mobile)) {
-            throw new ApiExecption("手机号码不正确认", 400);
-        }
-
-
         //判断是否存在用户表中
-        if ($data = $user->where(['phone' => $mobile])->first() === NULL) {
+        if (($data = $user->where(['phone' => $mobile])->first()) === NULL) {
             //注册一个新用户
             $user->store(['phone' => $mobile, 'member' => $user->createMember(), 'os_type' => $this->getOsType(), 'app_version' => '1.0.0', 'phone_version' => '1.0.0', 'channel' => 'h5']);
         }
 
-        //判断是发送的时间
         $sms = new SmsLogDaoImpl();
-
+        //判断是发送的时间
         $data = $sms->select(['send_time', 'mobile'])->where(['mobile' => $mobile])->orderBy('id', 'desc')->first();
 
         //当前时间 - 已经送的时间 是否小于60s
@@ -66,12 +82,14 @@ class SmsServiceImpl extends AbBaseServiceImpl
         $message = $this->sendSms($mobile, $content);
         $result = explode('/', $message)[0];
 
+        //返回状态码 000或0808191630319344 成功！
         if ($result == '0808191630319344' || $result == '000') {
             $status = 0;
         } else {
             $status = 1;
         }
 
+        //保存短信记录数据
         $sms->store(['mobile' => $mobile, 'content' => $content, 'send_time' => time(), 'code' => $code, 'message' => $message, 'status' => $status]);
 
         return md5("{$sms->id}.{$code}.{$mobile}");
@@ -103,23 +121,29 @@ class SmsServiceImpl extends AbBaseServiceImpl
     }
 
 
-
+    /**
+     * 检测手机号码和短信验证码是否正确
+     * @param $mobile
+     * @param $code
+     * @return bool
+     * @throws ApiExecption
+     */
     public function check($mobile, $code)
     {
         $sms = new SmsLogDaoImpl();
-        $data = $sms->select(['send_time', 'mobile', 'code'])->where(['mobile' => $mobile])->orderBy('id', 'desc')->first();
+        $data = $sms->select(['id', 'send_time', 'mobile', 'code'])->where(['mobile' => $mobile])->orderBy('id', 'desc')->first();
         //获取验证码有效期
         $codeExpiry = getenv('SMS_CODE_EXPIRY');
 
         if($data != NULL && (time() - $data['send_time']) < $codeExpiry)
         {
-
             if($data['code'] != $code)
             {
                 throw new ApiExecption("验证不正确");
             }
 
-            return true;
+            //修改使用状态并使用
+            return $sms->where(['id'=>$data->id])->update(['use'=>1]);
         }else
         {
             throw new ApiExecption("验证码已超过有效期");

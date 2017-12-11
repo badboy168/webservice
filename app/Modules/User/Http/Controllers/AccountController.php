@@ -1,13 +1,13 @@
 <?php
 namespace App\Modules\User\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiBaseController;
 use Illuminate\Http\Request;
 
 /**
  * 账户接口
  */
-class AccountController extends Controller
+class AccountController extends ApiBaseController
 {
     /**
      * Display a listing of the resource.

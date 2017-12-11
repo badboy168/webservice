@@ -18,6 +18,7 @@ class UsersDaoImpl extends AbBaseDaoImpl implements IUserInterface
     protected $table = 'users';
 
 
+
     /**
      * 检测签名是否已经存在
      * @param $input

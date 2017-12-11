@@ -6,14 +6,13 @@
  * Time: 下午3:43
  */
 
-namespace App\Modules\User\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
 
-abstract class AbBaseController extends Controller
+abstract class ApiBaseController extends Controller
 {
-
 
 
 
@@ -23,10 +22,17 @@ abstract class AbBaseController extends Controller
 
         list($controller, $action) = explode('@', $route['controller']);
         $this->controller = $controller;
-        $this->$action = $action;
-//        echo $controller, $action;
-//        dd($this->get_client_browser());
-//        dd($_SERVER);
+        $this->action = $action;
+
+//        $controller = $this->getController();
+//        $controllerName = explode('\\', $controller)[5];
+
+//        if($controllerName != 'SmsController')
+//        {
+////            dd($controllerName);
+//
+//            exit(json_encode($this->jsonApiError("请登录", 403)));
+//        }
     }
 
 
