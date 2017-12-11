@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 trait ApiGateway
 {
 
-    private $hashStatus = [200 => "成功", 400 => "请求参数有误", 401 => '重复请求', 403 => "需要授权", 405 => '方法未允许', 500 => '内部服务器错误'];
+    private $hashStatus = [200 => "成功", 400 => "请求参数有误", 401 => '重复请求', 403 => "未登录", 405 => '方法未允许', 500 => '内部服务器错误'];
 
     //状态
     private $status;
@@ -23,8 +23,6 @@ trait ApiGateway
 
     //返回的内容
     private $data = [];
-
-
 
 
     protected function saveErrorLog(\Exception $exception)
@@ -87,44 +85,37 @@ trait ApiGateway
         $default[0] = 200;
         $args = count(func_get_args()) > 0 ? func_get_args() : $default;
 
-        $this->status = $default[0];
-        $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-        $this->data = isset($args[0]) ? $args[0] : [];
-//        switch (gettype($args[0])) {
-//            case "integer":
-//
-//                if (isset($this->hashStatus[$args[0]])) {
-//                    $this->status = $args[0];
-//                    $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-//                    $this->data = [];
-//                } else {
-//                    $this->data = [];
-//                    $this->status = $args[0];
-//                    $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-//                }
-//
-//                break;
-//            case "array":
-//                $this->data = $args[0];
-//                $this->status = 200;
-//                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-//                break;
-//            case 'object':
-//                $this->data = $args[0];
-//                $this->status = 200;
-//                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-//                break;
-//            case 'string':
-//                $this->data = $args[0];
-//                $this->status = 200;
-//                $this->message = $this->hashStatus[$this->status];
-//                break;
-//            default:
-//                $this->status = 500;
-//                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
-//                $this->data = [];
-//                break;
-//        }
+//        $this->status = $default[0];
+//        $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
+//        $this->data = isset($args[0]) ? $args[0] : [];
+        switch (gettype($args[0])) {
+            case "integer":
+                $this->data = [];
+                $this->status = $args[0];
+                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
+                break;
+            case "array":
+                $this->data = $args[0];
+                $this->status = 200;
+                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
+                break;
+            case 'object':
+                $this->data = $args[0];
+                $this->status = 200;
+                $this->message = isset($args[1]) ? $args[1] : $this->hashStatus[$this->status];
+                break;
+            case 'string':
+                //如果参数是字符串, 则是把第0个参数传参message,如果有第一个参数则是把第一个参数传给data
+                $this->message = $args[0];
+                $this->data = isset($args[1]) ? $args[1] : [];
+                $this->status = 200;
+                break;
+            default:
+                $this->status = 200;
+                $this->message = $this->hashStatus[$this->status];
+                $this->data = [];
+                break;
+        }
 
         //拼装数据
         $result = ['status' => $this->status, 'message' => $this->message, 'data' => $this->data];

@@ -20,7 +20,7 @@ class SmsController extends Controller
     {
 
         //echo md5("lottery.112.74.26.118");
-        return [];
+        return ['test'=>"测试"];
     }
 
 
@@ -32,28 +32,27 @@ class SmsController extends Controller
 
 
     /**
-     * 检测验证码是否正确
+     * 通过验证码进行登录
+     * @param $request Request
      * @param $mobile string 手机号码
-     * @param $smsCode 短信验证码
+     * @param $smsCode integer 短信验证码
      * @return array
      */
-    function check(Request $request,$mobile, $smsCode)
+    function login(Request $request, $mobile, $smsCode)
     {
 //        if(! $this->checkCode($imgCode))
 //        {
 //            return $this->jsonApiError('验证码错误');
 //        }
 
-        try{
+        try {
             $smsService = new SmsServiceImpl();
-            if($smsService->check($mobile, $smsCode))
-            {
+            if ($smsService->check($mobile, $smsCode)) {
                 $request->session()->put('token', md5("{$mobile},{$smsCode}"));
-                
+
                 return $this->jsonApiSuccess("验证成功");
             }
-        }catch (ApiExecption $e)
-        {
+        } catch (ApiExecption $e) {
             return $this->jsonApiError($e);
         }
     }
@@ -67,13 +66,10 @@ class SmsController extends Controller
     private function checkCode($code)
     {
         $rules = ['captcha' => 'required|captcha'];
-        $validator = Validator::make(['captcha'=>$code], $rules);
-        if ($validator->fails())
-        {
+        $validator = Validator::make(['captcha' => $code], $rules);
+        if ($validator->fails()) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
@@ -84,37 +80,36 @@ class SmsController extends Controller
      * @param Request $request
      * @return array
      */
-    function login(Request $request)
+    function send(Request $request)
     {
-        //是否开启验证码
-        if(getenv('IS_SMS_CODE'))
-        {
-            if(! $this->checkCode($request->get('captcha')))
-            {
-                return $this->jsonApiError("验证码不正确");
-            }
-        }
 
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
 
-            try{
+            try {
+
+                //是否开启验证码
+                if (getenv('IS_SMS_CODE')) {
+                    $validator = Validator::make(['captcha' => $request->get('captcha')], ['captcha' => 'required|captcha']);
+                    //验证失败则直接返回提示消息
+                    if($validator->fails())
+                    {
+                        return $this->jsonApiError("验证码不正确", 300);
+                    }
+                }
+
                 $smsService = new SmsServiceImpl();
                 //发送短信
                 $smsService->send($request->get('mobile'));
-                //返回结果
-                return $this->jsonApiSuccess("发送成功", 200);
-            }catch (ApiExecption $e)
-            {
+                //返回结果 第一个参数如果是字符串的话会默认当做message,如果传的是数组或者对象
+                return $this->jsonApiSuccess("发送成功");
+            } catch (ApiExecption $e) {
                 return $this->jsonApiError($e);
             }
         }
 
         return $this->jsonApiError("您请求的参数不正确");
     }
-
-
-
 
 
     /**
