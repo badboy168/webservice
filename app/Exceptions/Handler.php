@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Routing\RouteCollection;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -56,6 +57,7 @@ class Handler extends ExceptionHandler
         if(config('app.debug')){
             return parent::render($request, $exception);
         }
+//
         return $this->handle($request, $exception);
 
 //        return parent::render($request, $exception);
@@ -65,30 +67,31 @@ class Handler extends ExceptionHandler
     // 新添加的handle函数
     public function handle($request, Exception $exception){
         // 只处理自定义的APIException异常
+        $message = "未知错误";
+        $status = 500;
+        $data = [];
+
         if($exception instanceof ApiExecption) {
-
-//            dd($exception->message);
-            $result = [
-                "msg"    => "",
-                "data"   => $exception->getErrorMessage(),
-                "status" => $exception->getCode()
-            ];
-
-            return response()->json($result);
-        }
-
-        if($exception instanceof NotFoundHttpException)
+            $message = $exception->getErrorMessage();
+            $status = $exception->getCode();
+        }else if($exception instanceof NotFoundHttpException)
         {
-            $result = [
-                "msg"    => "你请求的访法未找到",
-                "data"   => $exception->getMessage(),
-                "status" => 500
-            ];
-            return response()->json($result);
+            $message = "您请求的方法未代码";
+            $status = 400;
+        }else if($exception instanceof MethodNotAllowedHttpException)
+        {
+            $status = 400;
+            $message = "您请法的方法未允许";
+        }else
+        {
+            $status = 500;
+            $message = $exception->getMessage();
+
         }
 
-
-        return parent::render($request, $exception);
+        return response()->json(['status'=>$status, 'message'=>$message, 'data'=>$data]);
     }
 
+
+    //response()->json();
 }
