@@ -13,6 +13,8 @@ use App\Exceptions\ApiExecption;
 use App\Models\Dao\Impl\SmsLogDaoImpl;
 use App\Models\Dao\Impl\UsersDaoImpl;
 use Curl\Curl;
+use Illuminate\Support\Facades\Validator;
+
 
 class SmsServiceImpl extends AbBaseServiceImpl
 {
@@ -150,7 +152,7 @@ class SmsServiceImpl extends AbBaseServiceImpl
             return $sms->where(['id'=>$data->id])->update(['use'=>1]);
         }else
         {
-            throw new ApiExecption("验证码已超过有效期");
+            throw new ApiExecption("验证码已超过有效期", 300);
         }
 
     }
