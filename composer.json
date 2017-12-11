@@ -10,7 +10,11 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "mpociot/laravel-apidoc-generator": "^2.0"
+        "mews/captcha": "^2.1",
+        "mpociot/laravel-apidoc-generator": "^2.0",
+        "overtrue/laravel-wechat": "~3.0",
+        "php-curl-class/php-curl-class": "^8.0",
+        "zhuzhichao/ip-location-zh": "^2.4"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

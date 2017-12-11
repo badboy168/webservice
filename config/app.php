@@ -178,8 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Caffeinated\Modules\ModulesServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
-
-
+        Overtrue\LaravelWechat\ServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -229,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Module' => Caffeinated\Modules\Facades\Module::class,
+        'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
 
     ],

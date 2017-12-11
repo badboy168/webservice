@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,13 +15,17 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});//->middleware('auth:api');
 
+//getenv('API_PREFIX', 'v1')
 
 Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
+
     //用户API
     Route::resource('/user', 'UserController');
+
     //账户
     Route::resource('/account', 'AccountController');
 
+    Route::any('/wechat', 'WechatController@server');
 });
 
 //Route::resource('/user', 'UserController');

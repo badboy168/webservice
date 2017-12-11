@@ -394,7 +394,7 @@
             // Appends a list item HTML element to the last unordered list HTML element found within the HTML element calling the plugin
             item = $("<li/>", {
 
-                // Sets a common class name to the list item
+                // Sets a Common class name to the list item
                 "class": itemClassName,
 
                 "data-unique": hashValue
@@ -506,7 +506,7 @@
                 // Selects the last unordered list HTML found within the HTML element calling the plugin
                 ul.find(itemClass).last().
 
-                // Appends an unorderedList HTML element to the dynamic `unorderedList` variable and sets a common class name
+                // Appends an unorderedList HTML element to the dynamic `unorderedList` variable and sets a Common class name
                 after($("<ul/>", {
 
                     "class": subheaderClassName,

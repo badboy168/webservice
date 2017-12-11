@@ -56,6 +56,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## 模块化开发
 - **[https://packalyst.com/packages/package/caffeinated/modules]**
+文档 - **[https://github.com/caffeinated/modules/wiki]
 - 创建数据库迁移表 php artisan make:module:migration user create_users_table 
 ## API接口文档自动生成
 - **[https://github.com/mpociot/documentarian]**
