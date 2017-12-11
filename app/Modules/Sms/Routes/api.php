@@ -26,7 +26,7 @@ Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
     //验证用户输入的验证码是否正确认
     Route::get('/sms/login/{mobile}/{smsCode}', 'SmsController@login');
 
-//    Route::get('/sms/index', 'SmsController@index');
+    Route::get('/sms/index', 'SmsController@index');
     //短信
 //    Route::resource('/sms', 'SmsController');
 
