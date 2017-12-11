@@ -102,4 +102,28 @@ class SmsServiceImpl extends AbBaseServiceImpl
     }
 
 
+
+    public function check($mobile, $code)
+    {
+        $sms = new SmsLogDaoImpl();
+        $data = $sms->select(['send_time', 'mobile', 'code'])->where(['mobile' => $mobile])->orderBy('id', 'desc')->first();
+        //获取验证码有效期
+        $codeExpiry = getenv('SMS_CODE_EXPIRY');
+
+        if($data != NULL && (time() - $data['send_time']) < $codeExpiry)
+        {
+
+            if($data['code'] != $code)
+            {
+                throw new ApiExecption("验证不正确");
+            }
+
+            return true;
+        }else
+        {
+            throw new ApiExecption("验证码已超过有效期");
+        }
+
+    }
+
 }

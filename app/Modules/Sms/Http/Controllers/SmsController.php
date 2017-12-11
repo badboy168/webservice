@@ -3,6 +3,7 @@
 namespace App\Modules\Sms\Http\Controllers;
 
 use App\Exceptions\ApiExecption;
+use App\Models\Dao\Impl\SmsLogDaoImpl;
 use App\Models\Service\Impl\SmsServiceImpl;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class SmsController extends Controller
     public function index()
     {
 
+        echo md5("lottery.112.74.26.118");
         return [];
     }
 
@@ -31,17 +33,28 @@ class SmsController extends Controller
 
     /**
      * 检测验证码是否正确
-     * @param $code
+     * @param $mobile string 手机号码
+     * @param $imgCode 图片验证码
+     * @param $smsCode 短信验证码
      * @return array
      */
-    function check($code)
+    function check($mobile, $imgCode, $smsCode)
     {
-        if($this->checkCode($code))
+        if(! $this->checkCode($imgCode))
         {
-            return $this->jsonApiSuccess('验证码正确');
+            return $this->jsonApiError('验证码错误');
         }
 
-        return $this->jsonApiError('验证码错误');
+        try{
+            $smsService = new SmsServiceImpl();
+            if($smsService->check($mobile, $smsCode))
+            {
+                return $this->jsonApiSuccess("验证成功");
+            }
+        }catch (ApiExecption $e)
+        {
+            return $this->jsonApiError($e);
+        }
     }
 
 

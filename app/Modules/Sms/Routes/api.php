@@ -24,10 +24,10 @@ Route::group(['prefix' => getenv('API_PREFIX', 'v1')], function () {
     //获取验证码
     Route::get('/sms/getCode', 'SmsController@getCode');
     //验证用户输入的验证码是否正确认
-    Route::get('/sms/check/{code}', 'SmsController@check');
+    Route::get('/sms/check/{mobile}/{imgCode}/{smsCode}', 'SmsController@check');
 
 //    Route::get('/sms/index', 'SmsController@index');
     //短信
-//    Route::resource('/sms', 'SmsController');
+    Route::resource('/sms', 'SmsController');
 
 });
