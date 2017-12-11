@@ -30,7 +30,7 @@ class SmsController extends ApiBaseController
      */
     public function getCode()
     {
-        return captcha_img();
+        return captcha();
     }
 
 
