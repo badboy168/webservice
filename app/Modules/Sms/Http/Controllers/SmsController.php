@@ -19,7 +19,7 @@ class SmsController extends Controller
     public function index()
     {
 
-        echo md5("lottery.112.74.26.118");
+        //echo md5("lottery.112.74.26.118");
         return [];
     }
 
