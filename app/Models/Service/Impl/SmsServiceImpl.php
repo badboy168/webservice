@@ -14,8 +14,8 @@ use App\Models\Dao\Impl\SmsLogDaoImpl;
 use App\Models\Dao\Impl\UsersDaoImpl;
 use Curl\Curl;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use Zhuzhichao\IpLocationZh\Ip;
+use Illuminate\Support\Facades\Request;
 
 
 class SmsServiceImpl extends AbBaseServiceImpl
@@ -71,7 +71,7 @@ class SmsServiceImpl extends AbBaseServiceImpl
         //判断是否存在用户表中
         if (($data = $user->where(['phone' => $mobile])->first()) === NULL) {
             //获取客户端的真实IP
-            $ip = Request->getClientIp();
+            $ip = Request::getClientIp();
             //通过IP获取真实的地理位置
             $location = implode(' ', Ip::find($ip));
             //注册一个新用户
