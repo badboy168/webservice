@@ -6,11 +6,20 @@ use App\Exceptions\ApiExecption;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Models\Service\Impl\SmsServiceImpl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 
 class SmsController extends ApiBaseController
 {
+
+
+    function __construct()
+    {
+        parent::__construct();
+        Log::info(print_r($_REQUEST, true));
+    }
+
     /**
      * Display a listing of the resource.
      *
