@@ -37,8 +37,11 @@ class SmsController extends ApiBaseController
      * 获取图片验证码
      * @return mixed
      */
-    public function getCode()
+    public function getCode(Request $request)
     {
+
+        $request->session()->put("token", md5(time()));
+        
         return captcha();
     }
 
