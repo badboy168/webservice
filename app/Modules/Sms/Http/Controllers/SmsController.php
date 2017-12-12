@@ -41,7 +41,7 @@ class SmsController extends ApiBaseController
     {
 
         $request->session()->put("token", md5(time()));
-        Log::info(print_r($request->session()->all(), true));
+
 
         return captcha();
     }
@@ -60,6 +60,8 @@ class SmsController extends ApiBaseController
 //        {
 //            return $this->jsonApiError('验证码错误');
 //        }
+
+
 
         try {
             $smsService = new SmsServiceImpl();
@@ -100,8 +102,9 @@ class SmsController extends ApiBaseController
      */
     function send(Request $request)
     {
-
         Log::info($request->session()->get('token'));
+        Log::info(print_r($request->session()->all(), true));
+        
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
             try {
