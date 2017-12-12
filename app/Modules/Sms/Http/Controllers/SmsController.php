@@ -41,6 +41,7 @@ class SmsController extends ApiBaseController
     {
 
         $request->session()->put("token", md5(time()));
+        Log::info(print_r($request->session()->all(), true));
 
         return captcha();
     }
