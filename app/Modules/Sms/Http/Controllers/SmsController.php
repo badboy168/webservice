@@ -41,7 +41,7 @@ class SmsController extends ApiBaseController
     {
 
         $request->session()->put("token", md5(time()));
-        
+
         return captcha();
     }
 
@@ -100,6 +100,7 @@ class SmsController extends ApiBaseController
     function send(Request $request)
     {
 
+        Log::info($request->session()->get('token'));
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
             try {
