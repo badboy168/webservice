@@ -104,7 +104,7 @@ class SmsController extends ApiBaseController
     {
         Log::info($request->session()->get('token'));
         Log::info(print_r($request->session()->all(), true));
-        
+
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
             try {
