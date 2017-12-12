@@ -108,10 +108,10 @@ class SmsController extends ApiBaseController
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
             try {
-                if(! $this->checkCode($request->get('captcha')))
-                {
-                    return $this->jsonApiError("验证码不正确");
-                }
+//                if(! $this->checkCode($request->get('captcha')))
+//                {
+//                    return $this->jsonApiError("验证码不正确");
+//                }
 
                 $smsService = new SmsServiceImpl();
                 //发送短信
