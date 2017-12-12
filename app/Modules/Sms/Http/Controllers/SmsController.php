@@ -105,9 +105,20 @@ class SmsController extends ApiBaseController
         Log::info($request->session()->get('token'));
         Log::info(print_r($request->session()->all(), true));
 
+        //是否开启验证码
+        if (getenv('SMS_CHECK_CAPTCHA')) {
+            $validator = Validator::make(['captcha' => $request->get('captcha')], ['captcha' => 'required|captcha']);
+            //验证失败则直接返回提示消息
+            if($validator->fails())
+            {
+                return $this->jsonApiError("验证码不正确", 300);
+            }
+        }
+
         //判断是否有传入手机号码
         if ($request->get('mobile')) {
             try {
+
 //                if(! $this->checkCode($request->get('captcha')))
 //                {
 //                    return $this->jsonApiError("验证码不正确");
@@ -115,7 +126,7 @@ class SmsController extends ApiBaseController
 
                 $smsService = new SmsServiceImpl();
                 //发送短信
-                $smsService->send($request->get('mobile'), $request->get('captcha'));
+                $smsService->send($request->get('mobile'));
 //                //返回结果 第一个参数如果是字符串的话会默认当做message,如果传的是数组或者对象
                 return $this->jsonApiSuccess("发送成功");
             } catch (ApiExecption $e) {
