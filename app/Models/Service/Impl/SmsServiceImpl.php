@@ -43,14 +43,14 @@ class SmsServiceImpl extends AbBaseServiceImpl
     {
 
         //是否开启验证码
-        if (getenv('SMS_CHECK_CAPTCHA')) {
-            $validator = Validator::make(['captcha' => $captcha], ['captcha' => 'required|captcha']);
-            //验证失败则直接返回提示消息
-            if($validator->fails())
-            {
-                throw new ApiExecption("验证码不正确", 300);
-            }
-        }
+//        if (getenv('SMS_CHECK_CAPTCHA')) {
+//            $validator = Validator::make(['captcha' => $captcha], ['captcha' => 'required|captcha']);
+//            //验证失败则直接返回提示消息
+//            if($validator->fails())
+//            {
+//                throw new ApiExecption("验证码不正确", 300);
+//            }
+//        }
 
         //验证手机号码
         if (!$this->isMobile($mobile)) {
