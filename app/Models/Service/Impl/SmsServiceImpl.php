@@ -39,7 +39,7 @@ class SmsServiceImpl extends AbBaseServiceImpl
      * @return string
      * @throws ApiExecption
      */
-    function send($mobile, $captcha)
+    function send($mobile)
     {
 
 
