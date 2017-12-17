@@ -102,8 +102,8 @@ class SmsController extends ApiBaseController
      */
     function send(Request $request)
     {
-        Log::info($request->session()->get('token'));
-        Log::info(print_r($request->session()->all(), true));
+//        Log::info($request->session()->get('token'));
+//        Log::info(print_r($request->session()->all(), true));
 
         //是否开启验证码
         if (getenv('SMS_CHECK_CAPTCHA')) {
