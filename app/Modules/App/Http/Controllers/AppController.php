@@ -93,6 +93,8 @@ class AppController extends ApiBaseController
     public function store(Request $request)
     {
 
+        Log::info($request);
+        
     }
 
 
