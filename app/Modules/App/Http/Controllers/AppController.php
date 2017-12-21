@@ -96,7 +96,7 @@ class AppController extends ApiBaseController
         Log::info($request);
 
 //        Log::info(print_r($_SERVER, true));
-        Log::info($_SERVER['HTTP_ORIGIN']);
+
         return $this->jsonApiSuccess("测试");
     }
 
