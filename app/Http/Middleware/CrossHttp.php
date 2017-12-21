@@ -18,7 +18,7 @@ class CrossHttp
 
         $response = $next($request);
 
-        $host = $_SERVER['HTTP_ORIGIN'];
+        $host = isset($_SERVER['HTTP_ORIGIN'])?$_SERVER['HTTP_ORIGIN']:"";
         $allowHost = explode(',', getenv("ALLOW_ORIGIN_HOST"));
         if(in_array($host, $allowHost) && $host)
         {
