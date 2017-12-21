@@ -23,6 +23,7 @@ class CrossHttp
         $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Access-Token, Cookie, Accept, multipart/form-data');
         $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
+        
 //        $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
 //        $response->header('Access-Control-Allow-Credentials', 'true');
 
