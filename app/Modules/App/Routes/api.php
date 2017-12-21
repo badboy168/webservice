@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => "/app"], function () {
-
-
+    
     //登录
     Route::post('/login', 'AppController@login');
 
