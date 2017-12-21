@@ -65,4 +65,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## laravel restful 自动生成路由
 - php artisan make:controller PhotoController --resource
 - php artisan make:controller PhotoController --resource --model=Photo
-- test
+## 数据库
+-- 创建用户并受权 grant all privileges on returns.* to returns@127.0.0.1 identified by 'home.returns@c9168';
+-- 自动创建表命令  php artisan module:migrate 

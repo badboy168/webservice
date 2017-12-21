@@ -10,10 +10,24 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+
 
 abstract class ApiBaseController extends Controller
 {
 
+
+    //表名
+    protected $table;
+
+    //要查询的内容
+    protected $select;
+
+    //查询条件
+    protected $where;
+
+    //分页
+    protected $page;
 
 
     function __construct()
@@ -24,15 +38,25 @@ abstract class ApiBaseController extends Controller
         $this->controller = $controller;
         $this->action = $action;
 
-//        $controller = $this->getController();
-//        $controllerName = explode('\\', $controller)[5];
+        $this->init();
 
-//        if($controllerName != 'SmsController')
-//        {
-////            dd($controllerName);
-//
-//            exit(json_encode($this->jsonApiError("请登录", 403)));
-//        }
+        Log::info($_REQUEST);
+    }
+
+
+    private function init()
+    {
+        //获取表名
+        $this->table = isset($_GET['table']) ? $_GET['table'] : "";
+
+        //要展示的字段
+        $this->select = isset($_GET['select']) ? $_GET['select'] : "";
+
+        //要展示的字段
+        $this->where = isset($_GET['where']) ? $_GET['where'] : "";
+
+        $this->page = isset($_GET['page']) ? $_GET['page'] : "";
+
     }
 
 
