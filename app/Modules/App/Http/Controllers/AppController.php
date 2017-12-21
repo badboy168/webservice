@@ -97,6 +97,9 @@ class AppController extends ApiBaseController
 
 //        Log::info(print_r($_SERVER, true));
 
+
+
+        
         return $this->jsonApiSuccess("测试");
     }
 
