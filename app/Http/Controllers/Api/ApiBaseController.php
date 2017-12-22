@@ -33,14 +33,7 @@ abstract class ApiBaseController extends Controller
 
     function __construct()
     {
-        $route = request()->route()->getAction();
-
-        list($controller, $action) = explode('@', $route['controller']);
-        $this->controller = $controller;
-        $this->action = $action;
-
         $this->init();
-
 //        Log::info($_REQUEST);
     }
 
@@ -58,41 +51,23 @@ abstract class ApiBaseController extends Controller
 
         $this->page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
-        
+
     }
 
 
     public function index()
     {
 
-        return [$this->controller=>$this->action];
+        return [$this->controller => $this->action];
     }
-
-
-    protected function parseSelect()
-    {
-        foreach ($this->select as $key=>$val)
-        {
-            if($val == 'callFunction')
-            {
-
-            }
-        }
-    }
-
-
-
 
 
     function handle($input)
     {
-        foreach ($input as $key=>$val)
-        {
+        foreach ($input as $key => $val) {
 
-            if(is_array($val))
-            {
-                if(is_array($val) && $val[0] == 'callFunction')
-                {
+            if (is_array($val)) {
+                if (is_array($val) && $val[0] == 'callFunction') {
                     $input[$key] = call_user_func([$this, $val[1]]);
                 }
             }
@@ -100,7 +75,6 @@ abstract class ApiBaseController extends Controller
 
         return $input;
     }
-
 
 
     /**
@@ -114,10 +88,10 @@ abstract class ApiBaseController extends Controller
         //编号的前缀
         $today = date("ymd", time());
 
-        $count ++;
+        $count++;
         //前缀
         $prefix = intval('10000') + $count;
-        $number = $prefix.$today;
+        $number = $prefix . $today;
 
         return $number;
     }

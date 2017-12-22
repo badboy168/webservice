@@ -40,7 +40,7 @@ class AdminController extends ApiBaseController
 
             $arr = decrypt($request->get('sms'));
 
-            $arrPhone = explode(',', getenv('ADMIN_PHONES'));
+            $arrPhone = explode(',', getenv('ADMIN_ALLOW_PHONE'));
             if(! in_array($arr['phone'], $arrPhone))
             {
                 return $this->jsonApiError('账号不正确');
