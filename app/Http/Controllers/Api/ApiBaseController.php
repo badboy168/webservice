@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 
 abstract class ApiBaseController extends Controller
@@ -40,23 +41,24 @@ abstract class ApiBaseController extends Controller
 
         $this->init();
 
-        Log::info($_REQUEST);
+//        Log::info($_REQUEST);
     }
 
 
     private function init()
     {
         //获取表名
-        $this->table = isset($_GET['table']) ? $_GET['table'] : "";
+        $this->table = isset($_REQUEST['table']) ? $_REQUEST['table'] : "";
 
         //要展示的字段
-        $this->select = isset($_GET['select']) ? $_GET['select'] : "";
+        $this->select = isset($_REQUEST['select']) ? $_REQUEST['select'] : "";
 
         //要展示的字段
-        $this->where = isset($_GET['where']) ? $_GET['where'] : "";
+        $this->where = isset($_REQUEST['where']) ? $_REQUEST['where'] : "";
 
-        $this->page = isset($_GET['page']) ? $_GET['page'] : "";
+        $this->page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
+        
     }
 
 
@@ -67,33 +69,57 @@ abstract class ApiBaseController extends Controller
     }
 
 
-    /**
-     * 获取客户端浏览器类型
-     * @param  string $glue 浏览器类型和版本号之间的连接符
-     * @return string|array 传递连接符则连接浏览器类型和版本号返回字符串否则直接返回数组 false为未知浏览器类型
-     */
-    function get_client_browser($glue = null)
+    protected function parseSelect()
     {
-        $browser = array();
-        $agent = $_SERVER['HTTP_USER_AGENT']; //获取客户端信息
-        /* 定义浏览器特性正则表达式 */
-        $regex = array(
-            'ie' => '/(MSIE) (\d+\.\d)/',
-            'chrome' => '/(Chrome)\/(\d+\.\d+)/',
-            'firefox' => '/(Firefox)\/(\d+\.\d+)/',
-            'opera' => '/(Opera)\/(\d+\.\d+)/',
-            'safari' => '/Version\/(\d+\.\d+\.\d) (Safari)/',
-        );
-        foreach ($regex as $type => $reg) {
-            preg_match($reg, $agent, $data);
-            if (!empty($data) && is_array($data)) {
-                $browser = $type === 'safari' ? array($data[2], $data[1]) : array($data[1], $data[2]);
-                break;
+        foreach ($this->select as $key=>$val)
+        {
+            if($val == 'callFunction')
+            {
+
             }
         }
-        return empty($browser) ? false : (is_null($glue) ? $browser : implode($glue, $browser));
     }
 
 
+
+
+
+    function handle($input)
+    {
+        foreach ($input as $key=>$val)
+        {
+
+            if(is_array($val))
+            {
+                if(is_array($val) && $val[0] == 'callFunction')
+                {
+                    $input[$key] = call_user_func([$this, $val[1]]);
+                }
+            }
+        }
+
+        return $input;
+    }
+
+
+
+    /**
+     * 获取订单号
+     * @return string
+     */
+    function getOrderSn()
+    {
+        //获取当天的订单数
+        $count = 1;//$this->whereDay('created_at', date("d"))->count();
+        //编号的前缀
+        $today = date("ymd", time());
+
+        $count ++;
+        //前缀
+        $prefix = intval('10000') + $count;
+        $number = $prefix.$today;
+
+        return $number;
+    }
 
 }

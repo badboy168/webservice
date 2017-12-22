@@ -15,11 +15,18 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => "/app"], function () {
 
+
+    //管理登录
+    Route::post('admin/login', 'AdminController@login');
+
     //登录
-    Route::post('/login', 'AppController@login');
+    Route::post('login', 'AppController@login');
 
     //发送短信
-    Route::post('/sms', 'AppController@sms');
+    Route::post('sms', 'AppController@sms');
+
+//    Route::post('/upload', 'AppController@upload');
+
 
     //App
     Route::resource('/', 'AppController');

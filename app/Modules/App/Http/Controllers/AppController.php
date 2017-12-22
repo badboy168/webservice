@@ -10,6 +10,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Mockery\Exception;
 
 
@@ -26,6 +27,23 @@ use Mockery\Exception;
  */
 class AppController extends ApiBaseController
 {
+
+
+
+    function test(Request $request)
+    {
+        Log::info(print_r($request->all(), true));
+        foreach ($this->select as $key=>$val)
+        {
+//            Log::info($val);
+            if($val == 'callFunction')
+            {
+
+            }
+        }
+
+        return $this->jsonApiError("testing");
+    }
 
 
     /**
@@ -81,6 +99,7 @@ class AppController extends ApiBaseController
     public function create()
     {
         //
+
     }
 
     /**
@@ -92,8 +111,22 @@ class AppController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        
-        return $this->jsonApiSuccess("测试");
+
+        if ("" == $this->table) {
+            return $this->jsonApiError("表名不正确");
+        }
+
+        $data = $this->handle($request->all());
+
+        Log::info(print_r($data, true));
+        if(is_array($data))
+        {
+            $insertId = DB::table($this->table)->insertGetId($data);
+
+            return $this->jsonApiSuccess(['insertId'=>$insertId], '操作成功');
+        }
+
+        return $this->jsonApiError('参数不正确');
     }
 
 
@@ -210,4 +243,7 @@ class AppController extends ApiBaseController
             return $this->jsonApiSuccess(['token'=>encrypt(['phone'=>$mobile, 'code'=>$code, 'time'=>time()])],"发送成功");
         }
     }
+
+
+
 }
