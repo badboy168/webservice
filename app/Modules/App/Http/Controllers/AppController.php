@@ -66,7 +66,7 @@ class AppController extends ApiBaseController
             }
 
             if ($this->where) {
-                $connection = $connection->where($this->where);
+                $connection = $connection->where($this->handle($this->where));
             }
 
             if($this->page && $this->page > 0)
@@ -78,7 +78,7 @@ class AppController extends ApiBaseController
                 $data = $connection->first();
             }
 
-            return $this->jsonApiSuccess($data->toArray());
+            return $this->jsonApiSuccess($data);
         } catch (\Exception $e) {
             return $this->jsonApiError($e);
         }
@@ -113,9 +113,14 @@ class AppController extends ApiBaseController
             return $this->jsonApiError("表名不正确");
         }
 
+
         $data = $this->handle($request->all());
 
-        Log::info(print_r($data, true));
+        $data['created_at'] = date("Y-m-d H:i:s", time());
+        $data['updated_at'] = date("Y-m-d H:i:s", time());
+        unset($data['table']);
+        unset($data['token']);
+//        Log::info(print_r($data, true));
         if(is_array($data))
         {
             $insertId = DB::table($this->table)->insertGetId($data);
@@ -161,7 +166,16 @@ class AppController extends ApiBaseController
         //
     }
 
-   
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 
     /**
