@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
@@ -66,6 +68,11 @@ abstract class ApiBaseController extends Controller
     {
         foreach ($input as $key => $val) {
 
+            if($input[$key] == '')
+            {
+                unset($input[$key]);
+            }
+
             if (is_array($val)) {
                 if (is_array($val) && $val[0] == 'callFunction') {
                     $input[$key] = call_user_func([$this, $val[1]]);
@@ -84,16 +91,33 @@ abstract class ApiBaseController extends Controller
     function getOrderSn()
     {
         //获取当天的订单数
-        $count = 1;//$this->whereDay('created_at', date("d"))->count();
+        $count = DB::table('order_info')->whereDay('created_at', date("d"))->count();
+//        $count = 1;//$this->whereDay('created_at', date("d"))->count();
+        $count++;
+
+        //前缀
+        $prefix = 10000 + $count;
+
         //编号的前缀
         $today = date("ymd", time());
 
-        $count++;
-        //前缀
-        $prefix = intval('10000') + $count;
-        $number = $prefix . $today;
+        $number = "{$today}{$prefix}";
 
         return $number;
+    }
+
+
+    function getPhone()
+    {
+
+        try{
+            $arr = decrypt($_REQUEST['token']);
+            return $arr['phone'];
+
+        }catch (DecryptException $e)
+        {
+            return "";
+        }
     }
 
 }
