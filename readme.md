@@ -66,5 +66,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - php artisan make:controller PhotoController --resource
 - php artisan make:controller PhotoController --resource --model=Photo
 ## 数据库
--- 创建用户并受权 grant all privileges on returns.* to returns@127.0.0.1 identified by 'home.returns@c9168';
+-- 创建用户并授权 grant all privileges on returns.* to returns@127.0.0.1 identified by 'home.returns@c9168';
 -- 自动创建表命令  php artisan module:migrate 
+-- 修改描述 ALTER TABLE `order_info` CHANGE `remark` `remark` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述'; 
