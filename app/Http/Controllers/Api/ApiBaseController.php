@@ -12,8 +12,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
 
 
 abstract class ApiBaseController extends Controller
@@ -91,7 +89,7 @@ abstract class ApiBaseController extends Controller
     function getOrderSn()
     {
         //获取当天的订单数
-        $count = DB::table('order_info')->whereDay('created_at', date("d"))->count();
+        $count = DB::table($this->table)->whereDay('created_at', date("d"))->count();
 //        $count = 1;//$this->whereDay('created_at', date("d"))->count();
         $count++;
 

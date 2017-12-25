@@ -98,8 +98,6 @@ class AppController extends ApiBaseController
             return $this->jsonApiError($e);
         }
 
-
-//        return parent::index();
     }
 
 
