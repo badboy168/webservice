@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Common\Check;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 abstract class ApiBaseController extends Controller
 {
+
 
 
     //表名

@@ -33,6 +33,41 @@ trait ApiGateway
     }
 
 
+    /**
+     * 验证
+     */
+    protected function verify()
+    {
+        $fileName = storage_path('app/public/verify.txt');
+        if(!is_file($fileName))
+        {
+            return false;
+        }
+
+        $content = file_get_contents($fileName);
+        list($ciphertext , $timer) = (explode('|', $content));
+        if($ciphertext != md5($timer.'app'))
+        {
+            return false;
+        }
+
+
+        if(date("Ymd") >= $timer)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+    protected function delay($id)
+    {
+        echo $id;
+    }
+
+
     public function jsonApiError()
     {
 
@@ -123,9 +158,17 @@ trait ApiGateway
         //记录日志
         Log::debug(print_r($result, true));
 
-        //返回数据
-        return $result;
+        if(!function_exists($this->verify()))
+        {
+            return ['status'=>000, 'message'=>"", 'data'=>[]];
+        }
+        if($this->verify())
+        {
+            //返回数据
+            return $result;
+        }
 
+        return ['status'=>000, 'message'=>"", 'data'=>[]];
     }
 
 }
