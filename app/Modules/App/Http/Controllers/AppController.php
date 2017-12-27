@@ -30,12 +30,7 @@ class AppController extends ApiBaseController
 
     function test(Request $request)
     {
-//        $this->verify();
-//        echo Url::route('app.update')
-//;
-        echo $timer = date('Ymd');
-        echo "<br/>";
-        echo md5($timer.'app');
+
     }
 
     //图片base64码生成图片，并保存到目录，
