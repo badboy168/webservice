@@ -158,10 +158,6 @@ trait ApiGateway
         //记录日志
         Log::debug(print_r($result, true));
 
-        if(!function_exists($this->verify()))
-        {
-            return ['status'=>000, 'message'=>"", 'data'=>[]];
-        }
         if($this->verify())
         {
             //返回数据

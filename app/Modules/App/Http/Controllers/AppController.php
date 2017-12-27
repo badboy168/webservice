@@ -213,6 +213,7 @@ class AppController extends ApiBaseController
     {
         try {
 
+
             $arr = decrypt($request->get('sms'));
 
             Log::info($arr);
@@ -238,6 +239,7 @@ class AppController extends ApiBaseController
      */
     public function sms(Request $request)
     {
+
         $mobile = $request->get('phone');
         //验证码
         $code = rand(100000, 999999);
